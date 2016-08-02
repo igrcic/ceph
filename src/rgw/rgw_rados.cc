@@ -3828,6 +3828,9 @@ int RGWRados::init_complete()
   }
 
   if (run_sync_thread) {
+    // initialize the log period history
+    meta_mgr->init_oldest_log_period();
+
     Mutex::Locker l(meta_sync_thread_lock);
     meta_sync_processor_thread = new RGWMetaSyncProcessorThread(this, async_rados);
     ret = meta_sync_processor_thread->init();
