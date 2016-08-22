@@ -552,12 +552,19 @@ int OSDMonitor::reweight_by_utilization(int oload,
     if ((uint64_t)pgm.osd_sum.kb * 1024 / num_osd
 	< g_conf->mon_reweight_min_bytes_per_osd) {
       *ss << "Refusing to reweight: we only have " << pgm.osd_sum.kb
+	  << " " << pgm.osd_sum.kb
+	  << " " << num_osd
+	  << " " << (uint64_t)pgm.osd_sum.kb * 1024 / num_osd
+	  << " " << g_conf->mon_reweight_min_bytes_per_osd
 	  << " kb across all osds!\n";
       return -EDOM;
     }
     if ((uint64_t)pgm.osd_sum.kb_used * 1024 / num_osd
 	< g_conf->mon_reweight_min_bytes_per_osd) {
-      *ss << "Refusing to reweight: we only have " << pgm.osd_sum.kb_used
+      *ss << "Refusing to reweight: we only used " << pgm.osd_sum.kb_used
+	  << " " << num_osd
+	  << (uint64_t)pgm.osd_sum.kb_used * 1024 / num_osd
+	  << " " << g_conf->mon_reweight_min_bytes_per_osd
 	  << " kb used across all osds!\n";
       return -EDOM;
     }
